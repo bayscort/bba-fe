@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  // baseURL: 'http://localhost:8080/api',
   // baseURL: 'https://bba-palm-chain-dev-latest.onrender.com/api',
   // baseURL: 'https://bba-api.zai.my.id/api',
-  // baseURL: '/api',
+  baseURL: '/api',
 });
 
 api.interceptors.request.use(

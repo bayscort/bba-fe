@@ -28,6 +28,7 @@ import {
   ScrollText,
   ArrowLeftRight,
   Coins,
+  TrendingUp,
 } from 'lucide-react';
 
 type SectionKey =
@@ -72,6 +73,7 @@ const Sidebar = () => {
     { name: 'Dashboard', path: '/combine-dashboard', icon: <LayoutDashboard size={20} className="mr-3" />, apiName: 'dashboard' },
     { name: 'Trip Report', path: '/combine-report', icon: <BarChart2 size={20} className="mr-3" />, apiName: 'combine-report' },
     { name: 'Finance Report', path: '/combine-finance-report', icon: <Coins size={20} className="mr-3" />, apiName: 'combine-finance-report' },
+    { name: 'Cashflow', path: '/cashflow', icon: <TrendingUp size={20} className="mr-3" />, apiName: 'cashflow' },
     { name: 'Trip', path: '/trip', icon: <Route size={20} className="mr-3" />, apiName: 'trip' },
     { name: 'Fund Request', path: '/fund-request', icon: <FilePlus2 size={20} className="mr-3" />, apiName: 'fund-request' },
     { name: 'Receipt', path: '/receipt', icon: <FileText size={20} className="mr-3" />, apiName: 'receipt' },
@@ -168,7 +170,7 @@ const Sidebar = () => {
           {!isCollapsed.analytic && !isSidebarCollapsed && (
             <ul className="space-y-1 mt-2">
               {filteredMenuItems
-                .filter((item) => ['Trip Report', 'Finance Report'].includes(item.name))
+                .filter((item) => ['Trip Report', 'Finance Report', 'Cashflow'].includes(item.name))
                 .map((item) => (
                   <li
                     key={item.name}

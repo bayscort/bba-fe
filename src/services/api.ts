@@ -15,6 +15,7 @@ import { ReceiptReqDTO } from '../types/receipt';
 import { ExpenditureReqDTO } from '../types/expenditure';
 import { ManualReconciliationPayload } from '../types/reconciliation';
 import { TripType, TripTypeSummary } from '../types/trip-type';
+import { CashflowCategory } from '../types/cashflow';
 
 export interface PaginationParams {
   page?: number;
@@ -62,10 +63,10 @@ interface TripFilterParams {
   tripTypeIds?: (string | number)[];
   loadWeightMin?: number;
   loadWeightMax?: number;
-  millNull?: boolean;      
-  afdelingNull?: boolean;  
-  driverNull?: boolean;    
-  vehicleNull?: boolean;   
+  millNull?: boolean;
+  afdelingNull?: boolean;
+  driverNull?: boolean;
+  vehicleNull?: boolean;
   contractorNull?: boolean;
   tripTypeNull?: boolean;
 }
@@ -448,7 +449,7 @@ export const userService = {
 export const tripService = {
   getAllTrips: async (
     pagination: PaginationParams = { page: 0, size: 10, sort: 'date,desc' },
-    filters: TripFilterParams = {} 
+    filters: TripFilterParams = {}
   ): Promise<ApiResponse<Trip>> => {
     try {
       const params: any = {
@@ -1464,6 +1465,46 @@ export const getTripTypeSummaries = async (
     return response.data;
   } catch (error) {
     console.error(`API error: ${error}`);
+    throw error;
+  }
+};
+
+export const fetchCashflow = async (
+  type: string,
+  accountId: string,
+  year: number
+): Promise<CashflowCategory[]> => {
+  try {
+    const response = await api.get<CashflowCategory[]>('/reports/cashflow', {
+      params: {
+        type,
+        accountId,
+        year
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch cashflow data:', error);
+    throw error;
+  }
+};
+
+export const fetchCombineCashflow = async (
+  type: string,
+  accountIds: string[],
+  year: number
+): Promise<CashflowCategory[]> => {
+  try {
+    const response = await api.get<CashflowCategory[]>('/reports/combine-cashflow', {
+      params: {
+        type,
+        accountIds: accountIds.join(','),
+        year
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch combined cashflow data:', error);
     throw error;
   }
 };

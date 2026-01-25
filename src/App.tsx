@@ -27,6 +27,7 @@ import BankStatementPage from './pages/BankStatementPage';
 import ReconciliationPage from './pages/ReconciliationPage';
 import CombineDashboard from './pages/CombineDashboard';
 import CombineFinanceReport from './pages/CombineFinanceReport';
+import CombineCashflow from './pages/CombineCashflowPage';
 
 export function App() {
   useEffect(() => {
@@ -74,6 +75,7 @@ export function App() {
                       <Route path="/vehicle" element={<VehiclesPage />} />
                       <Route path="/combine-report" element={<CombineReport />} />
                       <Route path="/combine-finance-report" element={<CombineFinanceReport />} />
+                      <Route path="/cashflow" element={<CombineCashflow />} />
                       <Route path="/contact-support" element={<ContactSupportPage />} />
 
                     </Routes>
