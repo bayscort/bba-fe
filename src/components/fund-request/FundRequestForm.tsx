@@ -77,7 +77,7 @@ const FundRequestForm: React.FC<Props> = ({ isOpen, onClose, onSave, fundRequest
         const sanitizedValue = value.replace(/\D/g, '');
         finalValue = parseInt(sanitizedValue, 10) || 0;
       }
-      
+
       setFormData(prev => ({
         ...prev,
         fundRequestItemList: prev.fundRequestItemList.map((item, i) =>
@@ -142,6 +142,7 @@ const FundRequestForm: React.FC<Props> = ({ isOpen, onClose, onSave, fundRequest
     const newItemErrors: Partial<Record<keyof FundRequestItemCreate, string>>[] =
       formData.fundRequestItemList.map(() => ({}));
 
+    if (!formData.fundRequestCode.trim()) errs.fundRequestCode = 'Fund Request Code is required';
     if (!formData.date) errs.date = 'Date is required';
 
     formData.fundRequestItemList.forEach((item, index) => {
@@ -205,6 +206,19 @@ const FundRequestForm: React.FC<Props> = ({ isOpen, onClose, onSave, fundRequest
               <CheckCircle size={16} /> <span>{success}</span>
             </div>
           )}
+
+          <div>
+            <label className="block font-medium mb-1">Fund Request Code *</label>
+            <input
+              type="text"
+              name="fundRequestCode"
+              value={formData.fundRequestCode}
+              onChange={handleChange}
+              placeholder="e.g. FR-2026-001"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black ${errors.fundRequestCode ? 'border-red-500' : 'border-gray-300'}`}
+            />
+            {errors.fundRequestCode && <p className="text-red-500 mt-1">{errors.fundRequestCode}</p>}
+          </div>
 
           <div>
             <label className="block font-medium mb-1">Date *</label>
@@ -278,7 +292,7 @@ const FundRequestForm: React.FC<Props> = ({ isOpen, onClose, onSave, fundRequest
                   <div>
                     <label className="block font-medium mb-1">Amount *</label>
                     <input
-                      type="text" 
+                      type="text"
                       name="amount"
                       placeholder='0'
                       value={formatRupiah(item.amount)}
